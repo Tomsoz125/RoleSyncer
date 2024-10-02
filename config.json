@@ -1,0 +1,15 @@
+{
+	"sharding": {
+		"enabled": false,
+		"totalShards": 1,
+		"shardList": [0]
+	},
+	"colours": {
+		"success": "#5555FF",
+		"error": "#FF5555",
+		"suggest": "#29945e",
+		"review_good": "#29945e",
+		"review_bad": "#FF5555",
+		"review_mid": "#E27A18"
+	}
+}
