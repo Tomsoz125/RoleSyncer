@@ -13,9 +13,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model GuildConfig {
-    id String @id
-    suggestionChannel String?
-    reviewChannel String?
-    threads Boolean @default(true)
+model Cluster {
+    id Int @id @default(autoincrement())
+    name String
+    primaryGuild String @unique
+    primaryGuildNotifChannel String?
+    guilds GuildClusters[]
+    roles RoleMappings[]
+}
+
+model GuildClusters {
+    id Int @id @default(autoincrement())
+    guildId String
+    clusterId Int
+    cluster Cluster @relation(fields: [clusterId], references: [id])
+
+    notificationsChannel String?
+
+    @@unique([guildId, clusterId])
+}
+
+model RoleMappings {
+    id Int @id @default(autoincrement())
+
+    clusterId Int
+    clusters Cluster @relation(fields: [clusterId], references: [id])
+
+    rolesForMappingPrimary Json
+    rolesForMappingSecondary Json
 }

@@ -13,5 +13,6 @@ export const config = {
 	DATABASE_URL,
 	DEVELOPMENT_TOKEN,
 	sharding: cfg.sharding,
-	colours: cfg.colours
+	colours: cfg.colours,
+	invite: cfg.invite_link
 };

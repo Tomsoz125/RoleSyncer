@@ -11,5 +11,6 @@
 		"review_good": "#29945e",
 		"review_bad": "#FF5555",
 		"review_mid": "#E27A18"
-	}
+	},
+	"invite_link": "https://discord.com/oauth2/authorize?client_id=1149821808070103131&permissions=268435456&integration_type=0&scope=bot+applications.commands"
 }

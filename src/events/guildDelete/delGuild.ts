@@ -4,13 +4,14 @@ import { db } from "../../../db";
 export = async (client: Client, guild: Guild) => {
 	let guildConfig;
 	try {
-		guildConfig = await db.guildConfig.findUnique({
-			where: { id: guild.id }
+		guildConfig = await db.guildClusters.deleteMany({
+			where: { guildId: guild.id }
 		});
 	} catch (ignored) {}
 
-	if (!guildConfig) return;
 	try {
-		await db.guildConfig.delete({ where: { id: guild.id } });
+		await db.cluster.delete({
+			where: { primaryGuild: guild.id }
+		});
 	} catch (ignored) {}
 };
