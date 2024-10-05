@@ -20,6 +20,7 @@ model Cluster {
     primaryGuildNotifChannel String?
     guilds GuildClusters[]
     roles RoleMappings[]
+    shareBans Boolean @default(false)
 }
 
 model GuildClusters {

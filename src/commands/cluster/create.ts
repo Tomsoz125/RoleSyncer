@@ -161,7 +161,11 @@ export = {
 					primaryGuild: interaction.guildId,
 					primaryGuildNotifChannel: notifChannel
 						? notifChannel.id
-						: undefined
+						: undefined,
+					shareBans: interaction.options.get("share_bans", false)
+						? (interaction.options.get("share_bans", false)!
+								.value as boolean)
+						: false
 				}
 			});
 

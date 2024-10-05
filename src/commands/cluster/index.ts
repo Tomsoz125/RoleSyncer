@@ -1,4 +1,5 @@
 import {
+	ChannelType,
 	InteractionContextType,
 	PermissionFlagsBits,
 	SlashCommandBuilder
@@ -29,9 +30,37 @@ export = {
 						)
 						.setRequired(true)
 				)
+				.addBooleanOption((o) =>
+					o
+						.setName("share_bans")
+						.setDescription(
+							"Whether to also share bans between guilds!"
+						)
+						.setRequired(false)
+				)
+		)
+		.addSubcommand((subcommand) =>
+			subcommand
+				.setName("set-notif-channel")
+				.setDescription(
+					"Sets the channel that recieves cluster related notifications"
+				)
+				.addStringOption((o) =>
+					o
+						.setName("cluster")
+						.setDescription("The id of the cluster (/clusters)")
+						.setRequired(true)
+				)
+				.addChannelOption((o) =>
+					o
+						.setName("channel")
+						.setDescription("The channel to send logs in")
+						.setRequired(true)
+						.addChannelTypes(ChannelType.GuildText)
+				)
 		),
 
-	botPermissions: [],
+	botPermissions: [PermissionFlagsBits.Administrator],
 	enabled: true,
 	deleted: false
 } as CommandObject;
