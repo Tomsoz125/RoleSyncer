@@ -13,7 +13,7 @@ import getErrorEmbed from "../../utils/embeds/getErrorEmbed";
 import getSuccessEmbed from "../../utils/embeds/getSuccessEmbed";
 import getUnexpectedErrorEmbed from "../../utils/embeds/getUnexpectedErrorEmbed";
 import getCommandLink from "../../utils/getCommandLink";
-let name = "Review Config";
+let name = "Set Notification Channel";
 
 export = {
 	deferred: true,

@@ -58,6 +58,11 @@ export = {
 						.setRequired(true)
 						.addChannelTypes(ChannelType.GuildText)
 				)
+		)
+		.addSubcommand((subcommand) =>
+			subcommand
+				.setName("list")
+				.setDescription("Lists all clusters that the guild is in")
 		),
 
 	botPermissions: [PermissionFlagsBits.Administrator],
