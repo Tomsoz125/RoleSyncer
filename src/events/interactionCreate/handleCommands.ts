@@ -41,11 +41,13 @@ export = async (client: Client, interaction: Interaction) => {
 				}
 			}
 			if (missingPerms.length > 0) {
-				return await interaction.editReply({
+				const m = {
 					content: `Sorry, but I dont have the required permissions to perform this action! I need the permission${
 						missingPerms.length > 1 ? "s" : ""
 					} \`${missingPerms.join("`, `")}\` :(`
-				});
+				};
+				if (interaction.replied) return await interaction.editReply(m);
+				else return await interaction.reply(m);
 			}
 		}
 

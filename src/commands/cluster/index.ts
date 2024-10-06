@@ -45,7 +45,7 @@ export = {
 				.setDescription(
 					"Sets the channel that recieves cluster related notifications"
 				)
-				.addStringOption((o) =>
+				.addIntegerOption((o) =>
 					o
 						.setName("cluster")
 						.setDescription("The id of the cluster (/clusters)")
@@ -63,6 +63,17 @@ export = {
 			subcommand
 				.setName("list")
 				.setDescription("Lists all clusters that the guild is in")
+		)
+		.addSubcommand((subcommand) =>
+			subcommand
+				.setName("leave")
+				.setDescription("Leaves the specified cluster")
+				.addIntegerOption((o) =>
+					o
+						.setName("cluster")
+						.setDescription("The id of the cluster (/clusters)")
+						.setRequired(true)
+				)
 		),
 
 	botPermissions: [PermissionFlagsBits.Administrator],

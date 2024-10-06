@@ -57,12 +57,13 @@ export = {
 				where: { primaryGuild: interaction.guildId }
 			});
 		} catch (e) {
+			console.error(e);
 			return await interaction.editReply(
 				getUnexpectedErrorEmbed(interaction as Interaction, name)
 			);
 		}
 		let ownsCluster = true;
-		if (!currentCluster1) {
+		if (!currentCluster1 || currentCluster1.id !== clusterId) {
 			ownsCluster = false;
 			try {
 				var currentCluster2 = await db.guildClusters.findUnique({
@@ -75,6 +76,7 @@ export = {
 					include: { cluster: true }
 				});
 			} catch (e) {
+				console.error(e);
 				return await interaction.editReply(
 					getUnexpectedErrorEmbed(interaction as Interaction, name)
 				);
@@ -84,7 +86,7 @@ export = {
 					getErrorEmbed(
 						interaction as Interaction,
 						name,
-						`Sorry, but this guild is not in a cluster`
+						`Sorry, but this guild is not the specified cluster`
 					)
 				);
 			}

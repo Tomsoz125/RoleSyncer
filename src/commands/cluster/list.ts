@@ -67,18 +67,34 @@ export = {
 			interaction as Interaction,
 			name,
 			ownedCluster
-				? `**${ownedCluster.name}:**\n**ID:** \`${ownedCluster.id}\`\n**Share Bans:** \`${ownedCluster.shareBans}\`\n**Notification Channel:** <#${ownedCluster.primaryGuildNotifChannel}>\n**Cluster Owner:** \`This Guild\``
+				? `**${ownedCluster.name}:**\n**ID:** \`${
+						ownedCluster.id
+				  }\`\n**Share Bans:** \`${ownedCluster.shareBans}\`${
+						ownedCluster.primaryGuildNotifChannel
+							? `\n**Notification Channel:** <#${ownedCluster.primaryGuildNotifChannel}>`
+							: ``
+				  }\n**Cluster Owner:** \`This Guild\``
 				: ``
 		).embeds![0] as EmbedBuilder;
-		embed.addFields(
-			currentClusters.map((cluster) => {
-				const c = cluster.cluster;
-				return {
-					name: c.name,
-					value: `**ID:** \`${c.id}\`\n**Share Bans:** \`${c.shareBans}\`\n**Notification Channel:** <#${c.primaryGuildNotifChannel}>\n**Cluster Owner:** \`${c.id}\``
-				};
-			})
-		);
+		const fields = [];
+		for (const cluster of currentClusters) {
+			const c = cluster.cluster;
+			if (ownedCluster?.id === c.id) continue;
+			const ownerGuild = await client.guilds.fetch(c.primaryGuild);
+			fields.push({
+				name: c.name + ":",
+				value: `**ID:** \`${c.id}\`\n**Share Bans:** \`${
+					c.shareBans
+				}\`${
+					cluster.notificationsChannel
+						? `\n**Notification Channel:** <#${cluster.notificationsChannel}>`
+						: ``
+				}\n**Cluster Owner:** ${
+					ownerGuild ? ownerGuild.name + " " : ""
+				}(\`${c.primaryGuild}\`)`
+			});
+		}
+		embed.addFields(fields);
 
 		return await interaction.editReply({ embeds: [embed] });
 	}
